@@ -1,4 +1,4 @@
-// #define LED_PIN 2 // Najpier sprawdzamy, czy wybrana płytka ma definicję tego pinu, jak nie do odkomentować
+#define LED_PIN 2 // Najpier sprawdzamy, czy wybrana płytka ma definicję tego pinu, jak nie do odkomentować
 
 void setup() {
   Serial.begin(115200); // Uwaga! Sprawdż czy ta sama prędkość jest w ustawieniach Monitora! Inaczej będą krzaczki lub niczego nie będzie
