@@ -9,13 +9,13 @@ void setup() {
 }
 
 void loop() {
-  int count = WiFi.scanNetworks();
+  int count = WiFi.scanNetworks(); // Zwraca ilość odnalezionych sieci
   
-  if (count == 0) {
+  if (count == 0) { // Jeżeli brak sieci WiFI - ilość zero, daj znać, że nic nie znaeziono
     Serial.println("Nie wykryto zadnych sieci.");
   } else {
-    Serial.printf("Znaleziono %d sieci Wi-Fi:\n", count);
-    for (int i = 0; i < count; ++i) {
+    Serial.printf("Znaleziono %d sieci Wi-Fi:\n", count); // Podaj ilość znalezionych sieci
+    for (int i = 0; i < count; ++i) { // Wyświetl kolejne sieci wifi. Nazwa i moc sygnału
       Serial.printf("  %2d) SSID: %-20s | RSSI: %3d dBm\n", 
                     i + 1, 
                     WiFi.SSID(i).c_str(), 
