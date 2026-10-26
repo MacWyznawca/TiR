@@ -1,5 +1,5 @@
 #define BUTTON_PIN 0
-// #define LED_PIN 2
+#define LED_PIN 2
 
 void setup() {
   Serial.begin(115200);
