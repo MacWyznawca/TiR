@@ -31,7 +31,7 @@ float KD = 100.0;
 float currentError = 0.0;
 float errorP = 0.0;
 float errorD = 0.0;
-float previousError = 0.0;
+float previousTemp = 0.0;
 int pwmOutput = 0;
 
 float currentTemp = 0.0;
@@ -102,14 +102,21 @@ void loop() {
         // Algorytm PD
         currentError = setpoint - currentTemp;
         errorP = currentError * KP;
-        errorD = (currentError - previousError) * KD;
-        
+
+        // Człon D na podstawie zmiany zmiennej procesowej (temperatury)
+        // Zwróć uwagę na kolejność: previousTemp - currentTemp
+        errorD = (previousTemp - currentTemp) * KD; 
+
         float korekta = errorP + errorD;
-        previousError = currentError;
-        
+        previousTemp = currentTemp; // Zapisujemy czystą temperaturę do kolejnego cyklu
+
         pwmOutput = (int)korekta;
         if (pwmOutput > 255) pwmOutput = 255;
         if (pwmOutput < 0) pwmOutput = 0;
+
+        // (Zgodnie z ESP-IDF docelowo ledc_set_duty i ledc_update_duty,
+        // ale w API Arduino dla ESP32 poniższe wystarczy na laby)
+        ledcWrite(PIN_LED, pwmOutput);
         
         ledcWrite(PIN_LED, pwmOutput);
         
