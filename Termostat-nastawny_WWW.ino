@@ -5,8 +5,8 @@
 #include <DallasTemperature.h>
 #include <Adafruit_BME280.h>
 
-const char* ssid = "QART";
-const char* password = "malamysz";
+const char* ssid = "WiFi";
+const char* password = "test";
 WebServer server(80);
 
 #define PIN_DS18B20 4
@@ -120,6 +120,9 @@ void loop() {
     if (now - lastTime >= 1000) {
         sensors.requestTemperatures();
         currentTemp = sensors.getTempCByIndex(0);
+        if(currentTemp < 100 ){
+            currentTemp = bmp.readTemperature();
+        }
         currentHum = bmp.readHumidity();
         
         // Algorytm PD
